@@ -1,3 +1,7 @@
+[![Linux Tests](https://github.com/toddbluhm/sparrow-chat/workflows/linux%20tests/badge.svg)](https://github.com/toddbluhm/sparrow-chat/actions?query=workflow%3A%22linux%20tests%22)
+[![Windows Tests](https://github.com/toddbluhm/sparrow-chat/workflows/windows%20tests/badge.svg)](https://github.com/toddbluhm/sparrow-chat/actions?query=workflow%3A%22windows%20tests%22)
+[![TS-Standard - Typescript Standard Style Guide](https://img.shields.io/badge/code%20style-ts--standard-blue.svg)](https://github.com/toddbluhm/ts-standard)
+
 # sparrow-chat
 
 Realtime Chat Application using FeathersJS
