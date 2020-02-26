@@ -109,3 +109,6 @@ $RECYCLE.BIN/
 # Others
 lib/
 data/
+
+# ignore .env file
+.env

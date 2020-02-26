@@ -8,21 +8,27 @@ Realtime Chat Application using FeathersJS
 
 ## About
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+Realtime Chat Application using FeathersJS built as a coding test project for Sparrow Marketing.
 
 ## Getting Started
 
-Getting up and running is as easy as 1, 2, 3.
+Getting up and running is as easy as 1, 2, 3, 4.
 
 1. Make sure you have [NodeJS](https://nodejs.org/), [npm](https://www.npmjs.com/) and [yarn](https://yarnpkg.com/) installed.
-2. Install your dependencies
+2. Install your dependencies:
 
     ```
     cd path/to/sparrow-chat
     yarn install
     ```
 
-3. Start your app
+3. Github Authentication (optional): If you plan to enable github authentication you need to create a 
+[github oauth app](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/). Enter
+anything you like for the fields, the only requirement is setting the `Authorization callback URL` to 
+`http://localhost:3030/oauth/github/callback`. Next in the root directory, copy or rename `.env-example` to `.env`
+and fill in the `GITHUB_*` variables with the appropriate github values from the newly create github oauth app.
+
+4. Start your app:
 
     ```
     yarn start
@@ -31,19 +37,3 @@ Getting up and running is as easy as 1, 2, 3.
 ## Testing
 
 Simply run `yarn test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers help                           # Show all commands
-```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
