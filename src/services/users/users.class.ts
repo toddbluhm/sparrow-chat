@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { Params } from '@feathersjs/feathers'
 import { Service, NedbServiceOptions } from 'feathers-nedb'
+import { GeneralError } from '@feathersjs/errors'
 import { Application } from '../../declarations'
 
 // The Gravatar image service
@@ -9,7 +10,7 @@ const gravatarUrl = 'https://s.gravatar.com/avatar'
 const query = 's=60'
 
 // A type interface for our user (it does not validate any data)
-interface UserData {
+export interface UserData {
   _id?: string
   email: string
   password: string
@@ -25,10 +26,13 @@ export class Users extends Service<UserData> {
   async create (data: UserData, params?: Params): Promise<UserData | UserData[]> {
     // This is the information we want from the user signup data
     const { email, password, githubId } = data
-    // Gravatar uses MD5 hashes from an email address (all lowercase) to get the image
-    const hash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex')
-    // The full avatar URL
-    const avatar = `${gravatarUrl}/${hash}?${query}`
+    let { avatar } = data
+    // If no avatar attempt to use the email to grab a gravatar
+    if (avatar == null || avatar === '') {
+      // Gravatar uses MD5 hashes from an email address (all lowercase) to get the image
+      const hash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex')
+      avatar = `${gravatarUrl}/${hash}?${query}`
+    }
     // The complete user
     const userData = {
       email,
@@ -38,6 +42,13 @@ export class Users extends Service<UserData> {
     }
 
     // Call the original `create` method with existing `params` and new data
-    return super.create(userData, params)
+    try {
+      return await super.create(userData, params)
+    } catch (e) {
+      if (/violates the unique constraint/gi.test(e.message)) {
+        throw new GeneralError('That user already exists. Please login instead.')
+      }
+      throw e
+    }
   }
 }
