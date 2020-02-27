@@ -79,11 +79,11 @@
     "project": "./tsconfig.eslint.json",
     "ignore": [
       "lib",
-      "quickstart",
-      "public"
+      "quickstart"
     ],
     "env": [
-      "mocha"
+      "mocha",
+      "browser"
     ]
   },
   "husky": {
