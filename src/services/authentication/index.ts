@@ -3,6 +3,7 @@ import { AuthenticationService, JWTStrategy } from '@feathersjs/authentication'
 import { LocalStrategy } from '@feathersjs/authentication-local'
 import { expressOauth } from '@feathersjs/authentication-oauth'
 import { GitHubStrategy } from './github.strategy'
+import { FacebookStrategy } from './facebook.strategy'
 
 import { Application } from '../../declarations'
 
@@ -18,6 +19,7 @@ export default function (app: Application): void {
   authentication.register('jwt', new JWTStrategy())
   authentication.register('local', new LocalStrategy())
   authentication.register('github', new GitHubStrategy())
+  authentication.register('facebook', new FacebookStrategy())
 
   app.use('/authentication', authentication)
   app.configure(expressOauth())
