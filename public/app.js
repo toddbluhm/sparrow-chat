@@ -38,6 +38,10 @@ const loginHTML = `<main class="login container">
         <a class="button button-primary block" href="/oauth/github">
           Login with GitHub
         </a>
+
+        <a class="button button-primary block" href="/oauth/facebook">
+          Login with Facebook
+        </a>
       </form>
     </div>
   </div>

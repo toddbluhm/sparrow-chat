@@ -13,7 +13,7 @@ Realtime Chat Application using FeathersJS built as a coding test project for Sp
 
 ## Getting Started
 
-Getting up and running is as easy as following the steps below.
+Getting up and running is as easy as 1, 2, 3, 4.
 
 1. Make sure you have [NodeJS](https://nodejs.org/), [npm](https://www.npmjs.com/) and [yarn](https://yarnpkg.com/) installed.
 
@@ -27,17 +27,25 @@ Getting up and running is as easy as following the steps below.
 3. In the root directory, copy or rename `.env-cmdrc.example.json` to `.env-cmdrc.json`
    and fill in any values you wish to use and delete all the code comments in the file.
 
-4. Github Authentication (optional): If you plan to enable github authentication you need to create a 
+4. Start your app in dev mode:
+
+    ```
+    yarn dev
+    ```
+   
+## Login Methods
+
+- Email/Password (Default): Sign up and login via email and password is enabled by default.
+
+- Github Authentication: If you want to enable github authentication you need to create a 
 [github oauth app](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/). Enter
 anything you like for the fields of the new github oauth app, however, make sure to set the 
 `Authorization callback URL` to `http://localhost:3030/oauth/github/callback`. Next you need to add the 
 github oauth app key and secret to the `GITHUB_KEY` and `GITHUB_SECRET` fields in the `.env-cmdrc.json` file.
 
-5. Start your app in dev mode:
-
-    ```
-    yarn dev
-    ```
+- Facebook Authentication: If you want to enable facebook authentication you need to create a 
+[facebook oauth app](https://developers.facebook.com/docs/facebook-login). Next you need to add the 
+facebook app ID and secret to the `FACEBOOK_KEY` and `FACEBOOK_SECRET` fields in the `.env-cmdrc.json` file.
 
 ## Testing
 

@@ -32,6 +32,11 @@
       "github": {
         "key": "GITHUB_KEY",
         "secret": "GITHUB_SECRET"
+      },
+      "facebook": {
+        "key": "FACEBOOK_KEY",
+        "secret": "FACEBOOK_SECRET",
+        "scope": ["email, public_profile"]
       }
     }
   },

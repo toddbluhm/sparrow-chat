@@ -16,6 +16,7 @@ export interface UserData {
   password: string
   avatar?: string
   githubId?: string
+  facebookId?: string
 }
 
 export class Users extends Service<UserData> {
@@ -25,7 +26,7 @@ export class Users extends Service<UserData> {
 
   async create (data: UserData, params?: Params): Promise<UserData> {
     // This is the information we want from the user signup data
-    const { email, password, githubId } = data
+    const { email, password, githubId, facebookId } = data
     let { avatar } = data
     // If no avatar attempt to use the email to grab a gravatar
     if (avatar == null || avatar === '') {
@@ -38,7 +39,8 @@ export class Users extends Service<UserData> {
       email,
       password,
       githubId,
-      avatar
+      avatar,
+      facebookId
     }
 
     // Call the original `create` method with existing `params` and new data
