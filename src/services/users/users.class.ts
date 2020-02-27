@@ -23,7 +23,7 @@ export class Users extends Service<UserData> {
     super(options)
   }
 
-  async create (data: UserData, params?: Params): Promise<UserData | UserData[]> {
+  async create (data: UserData, params?: Params): Promise<UserData> {
     // This is the information we want from the user signup data
     const { email, password, githubId } = data
     let { avatar } = data
@@ -43,7 +43,11 @@ export class Users extends Service<UserData> {
 
     // Call the original `create` method with existing `params` and new data
     try {
-      return await super.create(userData, params)
+      const res = await super.create(userData, params)
+      if (Array.isArray(res)) {
+        return res[0]
+      }
+      return res
     } catch (e) {
       if (/violates the unique constraint/gi.test(e.message)) {
         throw new GeneralError('That user already exists. Please login instead.')

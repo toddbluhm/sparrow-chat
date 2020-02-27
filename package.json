@@ -26,10 +26,12 @@
     "yarn": ">= 0.18.0"
   },
   "scripts": {
-    "test": "env-cmd --silent yarn compile && yarn mocha",
-    "dev": "env-cmd --silent ts-node-dev --no-notify src/",
-    "start": "env-cmd --silent yarn compile && node lib/",
-    "mocha": "env-cmd --silent ts-mocha \"test/**/*.ts\" --recursive --exit",
+    "test": "yarn compile && yarn coverage",
+    "dev": "env-cmd -e default ts-node-dev --no-notify src/",
+    "start": "yarn compile && node lib/",
+    "clean": "shx rm -rf test/data/",
+    "coverage": "yarn clean && nyc yarn mocha",
+    "mocha": "env-cmd --silent -e default,test ts-mocha \"test/**/*.ts\" --recursive --exit",
     "compile": "shx rm -rf lib/ && tsc",
     "lint": "ts-standard --fix && tsc --noEmit"
   },
@@ -57,6 +59,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.6",
     "@types/helmet": "^0.0.45",
@@ -68,6 +71,7 @@
     "axios": "^0.19.2",
     "mocha": "^7.0.1",
     "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "shx": "^0.3.2",
     "ts-mocha": "^6.0.0",
     "ts-node-dev": "^1.0.0-pre.44",
@@ -95,5 +99,18 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "reporter": [
+      "text",
+      "lcov"
+    ],
+    "sourceMap": true,
+    "instrument": true
   }
 }

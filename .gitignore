@@ -12,6 +12,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -110,5 +111,5 @@ $RECYCLE.BIN/
 lib/
 data/
 
-# ignore .env file
-.env
+# ignore .env-cmdrc.json file
+.env-cmdrc.json
