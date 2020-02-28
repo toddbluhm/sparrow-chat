@@ -6,13 +6,15 @@
 
 Realtime Chat Application using FeathersJS
 
+A live demo version can of the app can be found [here](https://tb-sparrow-chat.herokuapp.com/).
+
 ## About
 
 Realtime Chat Application using FeathersJS built as a coding test project for Sparrow Marketing.
 
 ## Getting Started
 
-Getting up and running is as easy as 1, 2, 3, 4.
+Getting up and running by following the steps below.
 
 1. Make sure you have [NodeJS](https://nodejs.org/), [npm](https://www.npmjs.com/) and [yarn](https://yarnpkg.com/) installed.
 
@@ -26,7 +28,13 @@ Getting up and running is as easy as 1, 2, 3, 4.
 3. In the root directory, copy or rename `.env-cmdrc.example.json` to `.env-cmdrc.json`
    and fill in any values you wish to use and delete all the code comments in the file.
 
-4. Start your app in dev mode:
+4. Start a `postgres` docker container and update `.env-cmdrc.json` `dev` environment with the 
+appropriate settings that were configured for `postgres` inside the docker container. *Note: make sure 
+to expose the port on the container so that `postgres` can be accessed as `localhost`*
+
+5. Run the migrations for the new `postgres` db by running `yarn migrate:dev:up`
+
+6. Start your app in dev mode:
 
     ```
     yarn dev

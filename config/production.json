@@ -1,4 +1,9 @@
 {
-  "host": "sparrow-chat-app.feathersjs.com",
-  "port": "PORT"
+  "host": "HOST",
+  "port": "PORT",
+  "postgres": {
+    "dialectOptions": {
+      "ssl": true
+    }
+  }
 }
