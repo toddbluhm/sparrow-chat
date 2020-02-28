@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import { Params } from '@feathersjs/feathers'
-import { Service, NedbServiceOptions } from 'feathers-nedb'
+import { Service, SequelizeServiceOptions } from 'feathers-sequelize'
 import { GeneralError } from '@feathersjs/errors'
 import { Application } from '../../declarations'
 
@@ -11,22 +11,24 @@ const query = 's=60'
 
 // A type interface for our user (it does not validate any data)
 export interface UserData {
-  _id?: string
+  id?: number
   email: string
   password: string
   avatar?: string
-  githubId?: string
-  facebookId?: string
+  socialMediaConnections?: {
+    githubId?: string
+    facebookId?: string
+  }
 }
 
 export class Users extends Service<UserData> {
-  constructor (options: Partial<NedbServiceOptions>, app: Application) {
+  constructor (options: Partial<SequelizeServiceOptions>, app: Application) {
     super(options)
   }
 
   async create (data: UserData, params?: Params): Promise<UserData> {
     // This is the information we want from the user signup data
-    const { email, password, githubId, facebookId } = data
+    const { email, password, socialMediaConnections } = data
     let { avatar } = data
     // If no avatar attempt to use the email to grab a gravatar
     if (avatar == null || avatar === '') {
@@ -38,9 +40,8 @@ export class Users extends Service<UserData> {
     const userData = {
       email,
       password,
-      githubId,
-      avatar,
-      facebookId
+      socialMediaConnections,
+      avatar
     }
 
     // Call the original `create` method with existing `params` and new data

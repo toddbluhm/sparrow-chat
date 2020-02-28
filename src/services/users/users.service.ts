@@ -2,7 +2,7 @@
 import { ServiceAddons } from '@feathersjs/feathers'
 import { Application } from '../../declarations'
 import { Users } from './users.class'
-import createModel from '../../models/users.model'
+import { User as UserModel } from '../../models/'
 import hooks from './users.hooks'
 
 // Add this service to the service type index
@@ -14,9 +14,8 @@ declare module '../../declarations' {
 
 export default function (app: Application): void {
   const options = {
-    Model: createModel(app),
-    paginate: app.get('paginate'),
-    whitelist: ['$exists']
+    Model: UserModel,
+    paginate: app.get('paginate')
   }
 
   // Initialize our service with any options it requires
