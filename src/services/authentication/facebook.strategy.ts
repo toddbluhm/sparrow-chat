@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Sequelize } from 'sequelize'
 import { Params } from '@feathersjs/feathers'
 import { AuthenticationRequest } from '@feathersjs/authentication'
 import { OAuthProfile, OAuthStrategy } from '@feathersjs/authentication-oauth'
@@ -35,25 +36,28 @@ export class FacebookStrategy extends OAuthStrategy {
 
   async getEntityData (profile: OAuthProfile & { profile_pic?: string }, existing: any, params: Params
   ): Promise<{ [p: string]: any, email: string, avatar?: string }> {
-    const baseData = await super.getEntityData(profile, existing, params)
+    const { facebookId } = await super.getEntityData(profile, existing, params)
 
     return {
-      ...baseData,
+      socialMediaConnections: Sequelize.literal(
+        `"socialMediaConnections" || '${JSON.stringify({ facebookId })}'`
+      ),
       email: profile.email,
       avatar: profile.profile_pic
     }
   }
 
   getEntityQuery (profile: OAuthProfile & { email?: string }, _params: Params): any {
-    const facebookId = profile.id
+    let facebookId = profile.id
     if (facebookId == null || facebookId === '') {
       return
     }
+    facebookId = facebookId.toString()
     return {
       $limit: 1,
       $or: [
-        { facebookId },
-        { facebookId: { $exists: false }, email: profile.email }
+        { 'socialMediaConnections.facebookId': facebookId },
+        { 'socialMediaConnections.facebookId': null, email: profile.email }
       ]
     }
   }
@@ -82,8 +86,7 @@ export class FacebookStrategy extends OAuthStrategy {
               $limit: 1,
               $or: [
                 { avatar: '' },
-                { avatar: null },
-                { avatar: { $exists: false } }
+                { avatar: null }
               ]
             }
           })

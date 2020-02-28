@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize'
 import { OAuthProfile, OAuthStrategy } from '@feathersjs/authentication-oauth'
 import { Params } from '@feathersjs/feathers'
 import { UserData } from '../users/users.class'
@@ -5,25 +6,28 @@ import { UserData } from '../users/users.class'
 export class GitHubStrategy extends OAuthStrategy {
   async getEntityData (profile: OAuthProfile & { avatar_url?: string }, existing: any, params: Params
   ): Promise<{ [p: string]: any, email: string, avatar?: string }> {
-    const baseData = await super.getEntityData(profile, existing, params)
+    const { githubId } = await super.getEntityData(profile, existing, params)
 
     return {
-      ...baseData,
+      socialMediaConnections: Sequelize.literal(
+        `"socialMediaConnections" || '${JSON.stringify({ githubId })}'`
+      ),
       email: profile.email,
       avatar: profile.avatar_url
     }
   }
 
   getEntityQuery (profile: OAuthProfile & { email?: string }, _params: Params): any {
-    const githubId = profile.id
+    let githubId = profile.id
     if (githubId == null || githubId === '') {
       return
     }
+    githubId = githubId.toString()
     return {
       $limit: 1,
       $or: [
-        { githubId },
-        { githubId: { $exists: false }, email: profile.email }
+        { 'socialMediaConnections.githubId': githubId },
+        { 'socialMediaConnections.githubId': null, email: profile.email }
       ]
     }
   }
@@ -52,8 +56,7 @@ export class GitHubStrategy extends OAuthStrategy {
               $limit: 1,
               $or: [
                 { avatar: '' },
-                { avatar: null },
-                { avatar: { $exists: false } }
+                { avatar: null }
               ]
             }
           })

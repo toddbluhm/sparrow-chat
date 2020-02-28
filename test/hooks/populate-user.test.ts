@@ -12,14 +12,14 @@ describe('\'populate-user\' hook', () => {
 
   after(async () => {
     const service = app.service('users')
-    user = await service.remove(user._id)
+    user = await service.remove(user.id)
   })
 
   it('should populate the \'user\' field', async () => {
     const hook = populateUserHook()
     const res = await hook({
       id: '',
-      result: { userId: user._id },
+      result: { userId: user.id },
       app,
       method: 'get',
       type: 'after',
@@ -28,6 +28,6 @@ describe('\'populate-user\' hook', () => {
       service: {} as any
     })
     assert.ok(res.result.user)
-    assert.ok(res.result.user._id === user._id)
+    assert.ok(res.result.user.id === user.id)
   })
 })

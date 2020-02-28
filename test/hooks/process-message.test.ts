@@ -12,7 +12,7 @@ describe('\'process-message\' hook', () => {
 
   after(async () => {
     const service = app.service('users')
-    user = await service.remove(user._id)
+    user = await service.remove(user.id)
   })
 
   it('should clean message text', async () => {

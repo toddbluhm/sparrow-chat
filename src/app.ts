@@ -11,6 +11,8 @@ import socketio from '@feathersjs/socketio'
 
 import { Application } from './declarations'
 import logger from './logger'
+import { initSequelize } from './sequelize'
+import { initModels } from './models'
 import middleware from './middleware'
 import services from './services'
 import appHooks from './app.hooks'
@@ -22,6 +24,11 @@ const app: Application = express(feathers())
 
 // Load app configuration
 app.configure(configuration())
+
+// Initialize sequelize and models
+const seq = initSequelize(app)
+initModels(seq)
+
 // Enable security, CORS, compression, favicon and body parsing
 app.use(helmet())
 app.use(cors())

@@ -1,5 +1,4 @@
-[![Linux Tests](https://github.com/toddbluhm/sparrow-chat/workflows/linux%20tests/badge.svg)](https://github.com/toddbluhm/sparrow-chat/actions?query=workflow%3A%22linux%20tests%22)
-[![Windows Tests](https://github.com/toddbluhm/sparrow-chat/workflows/windows%20tests/badge.svg)](https://github.com/toddbluhm/sparrow-chat/actions?query=workflow%3A%22windows%20tests%22)
+[![Tests](https://github.com/toddbluhm/sparrow-chat/workflows/tests/badge.svg)](https://github.com/toddbluhm/sparrow-chat/actions?query=workflow%3A%22tests%22)
 [![Coverage Status](https://coveralls.io/repos/github/toddbluhm/sparrow-chat/badge.svg?branch=master)](https://coveralls.io/github/toddbluhm/sparrow-chat?branch=master)
 [![TS-Standard - Typescript Standard Style Guide](https://img.shields.io/badge/code%20style-ts--standard-blue.svg)](https://github.com/toddbluhm/ts-standard)
 

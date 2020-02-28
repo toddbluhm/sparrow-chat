@@ -40,5 +40,15 @@
       }
     }
   },
-  "nedb": "../data"
+  "postgres": {
+    "host": "PG_HOST",
+    "database": "PG_DATABASE",
+    "username": "PG_USER",
+    "password": "PG_PASSWORD",
+    "define": {
+      "timestamps": true,
+      "charset": "utf8",
+      "collate": "en_US.utf8"
+    }
+  }
 }

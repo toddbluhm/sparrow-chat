@@ -11,7 +11,7 @@ export default (): Hook => {
       // Get the user based on their id, pass the `params` along so
       // that we get a safe version of the user data
       try {
-        const user = await app.service('users').get(message.userId, params)
+        const user = await app.service('users').get(message.userId.toString(), params)
 
         // Merge the message content to include the `user` object
         return {
